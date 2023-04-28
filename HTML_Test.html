@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<p id="demo"></p>
+<input id="aNumber" type="number" value="3">
+<script>
+    function doSomething() {
+        document.getElementById("demo").innerHTML = document.getElementById("aNumber").value;
+    }
+</script>
+<input type="button" onclick="doSomething()" value="Do Something" />
+
+</body>
+</html>
