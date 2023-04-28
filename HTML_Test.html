@@ -12,6 +12,94 @@
     function doSomething() {
         document.getElementById("demo").innerHTML = document.getElementById("aNumber").value;
     }
+    function makeRandomBooleanArrayWithSizeAdjustments(y, x) {
+        let randomBooleanArray = []
+
+        for (let i = 0; i < y; i++) {
+            randomBooleanArray[i] = []
+            for (let j = 0; j < x; j++) {
+                randomBooleanArray[i][j] = getRandomBoolean()
+            }
+        }
+        return randomBooleanArray
+    }
+
+    function getRandomBoolean() {
+        return Math.random() < 0.5
+    }
+    function twoDimensionalArrayToString(array, trueValue, falseValue) {
+        let output = ""
+        let field;
+        for (let i = 0; i < array.length; ++i) {
+            for (let j = 0; j < array[i].length; ++j) {
+                field = array[i][j]
+                output += field ? trueValue : falseValue
+            }
+            output += "\n";
+        }
+        return output;
+    }
+    function amountOfLivingNeighbors(array, x, y) {
+
+        let alive = 0
+
+        let xLength = array.length, yLength = array[0].length
+        alive += array[(x + 1) % xLength][y] ? 1 : 0
+        alive += array[(x + 1) % xLength][(y - 1) < 0 ? yLength - 1 : (y - 1)] ? 1 : 0
+        alive += array[(x + 1) % xLength][(y + 1) % xLength] ? 1 : 0
+
+        alive += array[(x - 1) < 0 ? xLength - 1 : x - 1][y] ? 1 : 0
+        alive += array[(x - 1) < 0 ? xLength - 1 : x - 1][(y - 1) < 0 ? yLength - 1 : y - 1] ? 1 : 0;
+        alive += array[(x - 1) < 0 ? xLength - 1 : x - 1][(y + 1) % xLength] ? 1 : 0
+
+        alive += array[x][(y + 1) % xLength] ? 1 : 0
+        alive += array[x][(y - 1) < 0 ? yLength - 1 : y - 1] ? 1 : 0
+
+        return alive
+    }
+    function gameOfLifeUpdate(array) {
+        let newArray = []
+        for (let i = 0; i < array.length; ++i) {
+            newArray[i] = []
+            for (let j = 0; j < array[i].length; ++j) {
+                let livingNeighbors = amountOfLivingNeighbors(array, i, j)
+                alive = array[i][j]
+                if ((livingNeighbors === 3 || livingNeighbors === 2) && alive)
+                    newArray[i][j] = true
+                else if (alive)
+                    newArray[i][j] = false
+                else if (livingNeighbors === 3)
+                    newArray[i][j] = true
+                else newArray[i][j] = false
+            }
+        }
+        return newArray
+    }
+    let gameArray = gliderArray
+
+    makingGameOfLifeThroughRecursion(gameArray)
+    function makingGameOfLifeThroughRecursion(array) {
+        let newArray = gameOfLifeUpdate(array)
+        if (equalArrayTester(newArray, array))
+            return
+        array = newArray
+        let gameString
+        gameString = twoDimensionalArrayToString(array, ' ⬜ ', ' ⬛ ')
+        console.log(gameString)
+
+        setTimeout(e => {
+            makingGameOfLifeThroughRecursion(array)
+        }, 100)
+    }
+    function equalArrayTester(array, otherArray) {
+        for (let i = 0; i < array.length; i++)
+            for (let j = 0; j < array[i].length; j++) {
+                if (array[i][j] !== otherArray[i][j])
+                    return false
+
+            }
+        return true
+    }
 </script>
 <input type="button" onclick="doSomething()" value="Do Something" />
 

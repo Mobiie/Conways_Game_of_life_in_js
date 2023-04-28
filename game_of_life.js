@@ -122,11 +122,12 @@ gliderArray = [
 
 //makeRandomBooleanArrayWithSizeAdjustments(8, 8). <- put this function into gameArray to make a random pixelgrid, wth some pixels alive and some dead in the beginning.
 //You can also put in the Array-array "gliderArray" to have a world with a glider in it.
+//console.log( twoDimensionalArrayToString(cloverleafArray, ' ⬜ ', ' ⬛ '))
 let gameArray = gliderArray
 
  makingGameOfLifeThroughRecursion(gameArray)
 
-//console.log( twoDimensionalArrayToString(cloverleafArray, ' ⬜ ', ' ⬛ '))
+
 
 function makingGameOfLifeThroughRecursion(array) {
     let newArray = gameOfLifeUpdate(array)
